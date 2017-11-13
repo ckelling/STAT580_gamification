@@ -94,3 +94,12 @@ lm_fit2 <- lm(course_total ~ stay_30m +as.factor(teacher)+
                 female+maxLevel+game, data = dat_clean)
 summary(lm_fit2) #significant: everything except game.............
 plot(lm_fit2) #residuals actually look okay, again!
+
+
+#now, I will fit a model with random effect, for the course total
+#teacher will be included as a random effect
+merged_data$teacher <- as.factor(merged_data$teacher)
+fm_null0 <- lmer(course_total ~ stay_30m + mastApp+mastAvo+perfApp+perfAvo+(1 |teacher)+
+                   female+maxLevel+game, data = merged_data,REML =FALSE)
+summary(fm_null0)
+
