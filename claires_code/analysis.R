@@ -6,6 +6,7 @@
 library(plyr)
 library(readr)
 library(dplyr)
+library(lme4)
 stu_survey <- read_csv("C:/Users/ckell/OneDrive/Penn State/2017-2018/580/Gamification/STAT580_gamification/survey & data/stu_survey.csv")
 dat_clean <- read_csv("C:/Users/ckell/OneDrive/Penn State/2017-2018/580/Gamification/STAT580_gamification/Database data/database_cleaned.csv")
 
@@ -99,7 +100,11 @@ plot(lm_fit2) #residuals actually look okay, again!
 #now, I will fit a model with random effect, for the course total
 #teacher will be included as a random effect
 merged_data$teacher <- as.factor(merged_data$teacher)
-fm_null0 <- lmer(course_total ~ stay_30m + mastApp+mastAvo+perfApp+perfAvo+(1 |teacher)+
-                   female+maxLevel+game, data = merged_data,REML =FALSE)
+fm_0 <- lmer(course_total ~ stay_30m + mastApp+mastAvo+perfApp+perfAvo+(1 |teacher)+
+                   female+maxLevel, data = merged_data,REML =FALSE)
 summary(fm_null0)
 
+fm_1 <- lmer(course_total ~ stay_30m + mastApp+mastAvo+perfApp+perfAvo+(1 |teacher)+
+               female+maxLevel+game, data = merged_data,REML =FALSE)
+
+anova(fm_0,fm_1)
