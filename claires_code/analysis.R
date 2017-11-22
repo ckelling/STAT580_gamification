@@ -102,7 +102,7 @@ plot(lm_fit2) #residuals actually look okay, again!
 merged_data$teacher <- as.factor(merged_data$teacher)
 fm_0 <- lmer(course_total ~ stay_30m + mastApp+mastAvo+perfApp+perfAvo+(1 |teacher)+
                    female+maxLevel, data = merged_data,REML =FALSE)
-summary(fm_null0)
+summary(fm_0)
 
 fm_1 <- lmer(course_total ~ stay_30m + mastApp+mastAvo+perfApp+perfAvo+(1 |teacher)+
                female+maxLevel+game, data = merged_data,REML =FALSE)
